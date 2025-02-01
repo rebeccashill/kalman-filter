@@ -10,11 +10,17 @@ class KalmanFilterToy:
     def __init__(self):
         self.v = 0
         self.prev_x = 0
-        self.prev_t = 0
+        self.prev_time = 0
+
     def predict(self,t):
-        prediction = 0
-        return prediction
+        return self.v*(t - self.prev_time) + self.prev_x
+    
     def measure_and_update(self,x,t):
+        measured_v = (x - self.prev_x)/(t - self.prev_time)
+        self.v += 0.5*(measured_v - self.v)
+
+        self.prev_x = x
+        self.prev_time = t
         return
 
 
